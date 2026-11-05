@@ -1,0 +1,108 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "TERMA  /  ÚLTIMA CONVERSIÓN",
+          "size": "Small",
+          "weight": "Bolder",
+          "color": "Accent",
+          "spacing": "None"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Temperatura al instante",
+          "size": "Medium",
+          "weight": "Bolder",
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "spacing": "Large",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "ENTRADA",
+              "size": "Small",
+              "isSubtle": true,
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "${inputValue} ${inputUnit}",
+              "size": "ExtraLarge",
+              "weight": "Bolder",
+              "color": "Accent",
+              "spacing": "Small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "verticalContentAlignment": "Center",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "→",
+              "size": "Large",
+              "isSubtle": true
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "RESULTADO",
+              "size": "Small",
+              "isSubtle": true,
+              "horizontalAlignment": "Right",
+              "spacing": "None"
+            },
+            {
+              "type": "TextBlock",
+              "text": "${resultValue} ${resultUnit}",
+              "size": "ExtraLarge",
+              "weight": "Bolder",
+              "color": "Attention",
+              "horizontalAlignment": "Right",
+              "spacing": "Small"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "spacing": "Medium",
+      "facts": [
+        { "title": "Sensación", "value": "${sensation}" },
+        { "title": "Fórmula", "value": "${formula}" },
+        { "title": "Actualizado", "value": "${updatedAt}" }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Abrir Terma",
+      "verb": "open-temperature"
+    }
+  ]
+}

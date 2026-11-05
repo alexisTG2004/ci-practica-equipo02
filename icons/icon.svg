@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Terma</title>
+  <desc id="desc">Símbolo de temperatura en azul frío y coral cálido</desc>
+  <defs>
+    <linearGradient id="bg" x1="60" y1="32" x2="460" y2="488" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14283c"/>
+      <stop offset="1" stop-color="#08131f"/>
+    </linearGradient>
+    <linearGradient id="heat" x1="164" y1="354" x2="355" y2="115" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#31b8d7"/>
+      <stop offset=".5" stop-color="#d8f36a"/>
+      <stop offset="1" stop-color="#ff674d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="116" cy="105" r="38" fill="#31b8d7" opacity=".9"/>
+  <circle cx="411" cy="402" r="66" fill="#ff674d" opacity=".92"/>
+  <path d="M202 113a54 54 0 0 1 108 0v171a104 104 0 1 1-108 0V113Z" fill="none" stroke="#fffdf8" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M256 141v190" stroke="url(#heat)" stroke-width="31" stroke-linecap="round"/>
+  <circle cx="256" cy="354" r="60" fill="url(#heat)" stroke="#fffdf8" stroke-width="14"/>
+  <path d="M339 151h50M339 207h35M339 263h50" stroke="#fffdf8" stroke-width="17" stroke-linecap="round"/>
+</svg>

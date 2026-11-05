@@ -1,0 +1,9 @@
+{
+  "inputValue": "25",
+  "inputUnit": "°C",
+  "resultValue": "77",
+  "resultUnit": "°F",
+  "sensation": "Agradable",
+  "formula": "°F = 25 × 9/5 + 32",
+  "updatedAt": "Datos iniciales"
+}

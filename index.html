@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Terma — Calculadora de Temperatura</title>
+  <meta name="description" content="Convierte temperaturas entre Celsius, Fahrenheit y Kelvin. Instalable y disponible sin conexión.">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d1b2a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Terma">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="ambiente" aria-hidden="true">
+    <span class="ambiente__frio"></span>
+    <span class="ambiente__calor"></span>
+    <span class="ambiente__rejilla"></span>
+  </div>
+
+  <!-- Barra exclusiva de la PWA instalada: ocupa el área superior de la ventana. -->
+  <header class="barra" id="barra">
+    <div class="barra__marca">
+      <img src="icons/icon.svg" width="20" height="20" alt="">
+      <span class="barra__nombre">TERMA / CONVERTIDOR</span>
+    </div>
+    <nav class="barra__controles" aria-label="Acciones rápidas">
+      <button type="button" class="barra__btn" data-accion="intercambiar" title="Intercambiar unidades">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4m4 4H7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="barra__texto">Intercambiar</span>
+      </button>
+      <button type="button" class="barra__btn" data-accion="copiar" title="Copiar resultado">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+        <span class="barra__texto">Copiar</span>
+      </button>
+      <button type="button" class="barra__btn" data-accion="guardar" title="Guardar en el historial">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 4h12v16l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+        <span class="barra__texto">Guardar</span>
+      </button>
+      <button type="button" class="barra__btn" data-accion="limpiar" title="Limpiar">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="barra__texto">Limpiar</span>
+      </button>
+      <button type="button" class="barra__btn" data-accion="historial" title="Ir al historial">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="barra__texto">Historial</span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="app">
+    <header class="cabecera">
+      <a class="marca" href="#convertidor" aria-label="Ir al convertidor">
+        <img class="marca__icono" src="icons/icon.svg" width="46" height="46" alt="">
+        <span class="marca__texto"><b>TERMA</b><small>Conversor térmico</small></span>
+      </a>
+      <div class="estado-app" aria-label="Características de la aplicación">
+        <span><i aria-hidden="true"></i> Funciona sin conexión</span>
+        <span>PWA instalable</span>
+      </div>
+    </header>
+
+    <p class="aviso" id="aviso" hidden></p>
+
+    <main>
+      <section class="presentacion" aria-labelledby="tituloPagina">
+        <div>
+          <p class="sobretitulo">Herramienta de conversión / 01</p>
+          <h1 id="tituloPagina">Una lectura clara,<br><em>en cualquier escala.</em></h1>
+        </div>
+        <p class="presentacion__texto">Convierte Celsius, Fahrenheit y Kelvin en tiempo real. El resultado, la fórmula y las equivalencias siempre quedan a la vista.</p>
+      </section>
+
+      <div class="tablero">
+        <section class="panel conversor" id="convertidor" aria-labelledby="tituloConv">
+          <header class="panel__encabezado">
+            <div>
+              <span class="indice">01</span>
+              <h2 id="tituloConv">Conversión principal</h2>
+            </div>
+            <span class="en-vivo"><i aria-hidden="true"></i> En vivo</span>
+          </header>
+
+          <div class="bloque-unidad">
+            <span class="etiqueta" id="lblDe">Valor de origen</span>
+            <div class="segmentos" role="radiogroup" aria-labelledby="lblDe" data-grupo="de">
+              <span class="segmentos__cursor" aria-hidden="true"></span>
+              <label><input type="radio" name="de" value="C" checked><span><b>°C</b><small>Celsius</small></span></label>
+              <label><input type="radio" name="de" value="F"><span><b>°F</b><small>Fahrenheit</small></span></label>
+              <label><input type="radio" name="de" value="K"><span><b>K</b><small>Kelvin</small></span></label>
+            </div>
+          </div>
+
+          <div class="entrada">
+            <label for="valor" class="sr-only">Temperatura a convertir</label>
+            <input id="valor" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" maxlength="12" placeholder="0" aria-describedby="error ayuda">
+            <span class="entrada__unidad" id="unidadEntrada">°C</span>
+          </div>
+          <p class="ayuda" id="ayuda">Admite negativos y decimales. Usa <kbd>↑</kbd> o <kbd>↓</kbd> para ajustar el valor.</p>
+          <p class="error" id="error" aria-live="polite"></p>
+
+          <div class="cambio-escala">
+            <span aria-hidden="true"></span>
+            <button type="button" class="intercambiar" id="btnIntercambiar" title="Intercambiar unidades" aria-label="Intercambiar unidades">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4m4 4H7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div class="bloque-unidad">
+            <span class="etiqueta" id="lblA">Escala de destino</span>
+            <div class="segmentos" role="radiogroup" aria-labelledby="lblA" data-grupo="a">
+              <span class="segmentos__cursor" aria-hidden="true"></span>
+              <label><input type="radio" name="a" value="C"><span><b>°C</b><small>Celsius</small></span></label>
+              <label><input type="radio" name="a" value="F" checked><span><b>°F</b><small>Fahrenheit</small></span></label>
+              <label><input type="radio" name="a" value="K"><span><b>K</b><small>Kelvin</small></span></label>
+            </div>
+          </div>
+
+          <div class="salida">
+            <span class="salida__etiqueta">Resultado</span>
+            <output class="resultado" id="resultado" for="valor" aria-live="polite">—</output>
+            <p class="formula" id="formula"></p>
+          </div>
+
+          <div class="acciones">
+            <button type="button" class="boton boton--secundario" id="btnCopiar">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+              Copiar
+            </button>
+            <button type="button" class="boton boton--principal" id="btnGuardar">
+              Guardar lectura
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <aside class="lateral">
+          <section class="panel lectura" aria-labelledby="tituloTermo">
+            <header class="panel__encabezado">
+              <div>
+                <span class="indice">02</span>
+                <h2 id="tituloTermo">Lectura completa</h2>
+              </div>
+              <span class="sensacion" id="sensacion">—</span>
+            </header>
+
+            <div class="termometro" aria-hidden="true">
+              <div class="termometro__cabecera"><span>Frío</span><span>Templado</span><span>Calor</span></div>
+              <div class="termometro__pista"><span class="termometro__marca" id="marca"></span></div>
+              <div class="termometro__escala"><span>-40°</span><span>0°</span><span>40°</span><span>80°</span><span>120 °C</span></div>
+            </div>
+            <ul class="todas" id="todas"></ul>
+          </section>
+
+          <section class="panel referencias-panel" aria-labelledby="tituloRef">
+            <header class="panel__encabezado">
+              <div>
+                <span class="indice">03</span>
+                <h2 id="tituloRef">Puntos de referencia</h2>
+              </div>
+            </header>
+            <div class="referencias" id="referencias">
+              <button type="button" class="ref" data-c="-273.15"><span class="ref__numero">01</span><span><b>Cero absoluto</b><small>-273.15 °C</small></span></button>
+              <button type="button" class="ref" data-c="0"><span class="ref__numero">02</span><span><b>Agua congela</b><small>0 °C</small></span></button>
+              <button type="button" class="ref" data-c="22"><span class="ref__numero">03</span><span><b>Habitación</b><small>22 °C</small></span></button>
+              <button type="button" class="ref" data-c="37"><span class="ref__numero">04</span><span><b>Cuerpo humano</b><small>37 °C</small></span></button>
+              <button type="button" class="ref" data-c="100"><span class="ref__numero">05</span><span><b>Agua hierve</b><small>100 °C</small></span></button>
+              <button type="button" class="ref" data-c="180"><span class="ref__numero">06</span><span><b>Horno</b><small>180 °C</small></span></button>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="panel historial" id="historial" aria-labelledby="tituloHist">
+        <header class="panel__encabezado historial__encabezado">
+          <div>
+            <span class="indice">04</span>
+            <h2 id="tituloHist">Lecturas guardadas</h2>
+          </div>
+          <button type="button" class="boton-texto" id="btnBorrarHist" hidden>Borrar todo</button>
+        </header>
+        <ul class="lista" id="lista"></ul>
+        <p class="vacio" id="vacio"><span aria-hidden="true">↳</span> Aún no hay lecturas. Guarda una conversión y aparecerá aquí.</p>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <span>TERMA © 2026</span>
+      <span><a href="privacy.html">Privacidad</a> · Calculadora de Temperatura · v<span id="version"></span></span>
+    </footer>
+  </div>
+
+  <div class="aviso-flotante" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastTexto"></span>
+    <button type="button" class="aviso-flotante__accion" id="toastAccion" hidden></button>
+  </div>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>

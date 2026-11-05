@@ -1,0 +1,78 @@
+{
+  "id": "terma-calculadora",
+  "name": "Terma - Calculadora de Temperatura",
+  "short_name": "Terma",
+  "description": "Convierte temperaturas entre Celsius, Fahrenheit y Kelvin. Instalable y disponible sin conexión.",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#f4f0e7",
+  "theme_color": "#0d1b2a",
+  "categories": ["utilities", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    {
+      "src": "store-assets/screenshot-01-main.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Conversor de temperatura de Terma con equivalencias en Celsius, Fahrenheit y Kelvin"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva conversión",
+      "short_name": "Convertir",
+      "description": "Abre directamente el conversor de temperatura.",
+      "url": "./#convertidor",
+      "icons": [
+        { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Lecturas guardadas",
+      "short_name": "Historial",
+      "description": "Abre el historial local de conversiones.",
+      "url": "./#historial",
+      "icons": [
+        { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "name": "Última conversión de Terma",
+      "short_name": "Terma",
+      "description": "Muestra la última conversión realizada y permite abrir la calculadora.",
+      "tag": "terma-last-conversion",
+      "template": "terma-last-conversion-template",
+      "ms_ac_template": "widgets/widget-template.json",
+      "data": "widgets/widget-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "widgets/widget-preview.png",
+          "sizes": "600x400",
+          "type": "image/png",
+          "label": "Widget de Terma con la última conversión de temperatura",
+          "platform": "windows"
+        }
+      ],
+      "icons": [
+        { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }
+      ],
+      "auth": false,
+      "update": 86400,
+      "multiple": false
+    }
+  ]
+}
