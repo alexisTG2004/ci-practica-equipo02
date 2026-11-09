@@ -20,4 +20,4 @@ python -m pytest -v
 
 ## Integración continua
 
-El workflow `Python CI` se ejecuta automáticamente con cada `push` y también puede iniciarse manualmente desde la pestaña Actions.
+El workflow `CI Pipeline` se ejecuta automáticamente con cada `push` y también puede iniciarse manualmente desde la pestaña Actions.
